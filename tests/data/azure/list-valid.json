@@ -1,0 +1,18 @@
+{
+  "accounts": [
+    {
+      "id": "4349ccdb-a2fd-4a89-a07b-48e3e330670b",
+      "name": "Go SDK Test",
+      "applicationId": "3a64bc23-5dd6-4624-8ce8-fe3e61b41579",
+      "directoryId": "5d7ef62e-c8bb-41fc-9a55-9a2c30701027",
+      "subscriptionId": "db0297eb-ad6c-4e63-86b0-c1acb6a16570",
+      "readAccess": [],
+      "writeAccess": [],
+      "createdAt": "2023-03-15T20:42:52.704Z",
+      "updatedAt": "2023-03-15T20:43:10.171Z",
+      "CreatorId": "6935c7da-cdfb-4885-902c-25aa00720ab4",
+      "hint": "3RK",
+      "source": "azure"
+    }
+  ]
+}

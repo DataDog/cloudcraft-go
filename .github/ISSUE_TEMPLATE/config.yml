@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Cloudcraft support
+    url: https://app.cloudcraft.co/app/support
+    about: Our friendly, knowledgeable support engineers are here to help.
+  - name: Cloudcraft security
+    url: https://www.cloudcraft.co/security
+    about: We care about security. If you have any questions, or encounter any issues, please contact us.

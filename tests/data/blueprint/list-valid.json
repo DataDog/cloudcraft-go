@@ -1,0 +1,16 @@
+{
+  "blueprints": [
+    {
+      "id": "60ec30c9-741f-4acb-b5f5-794934987802",
+      "name": "Web App Reference Architecture",
+      "tags": null,
+      "readAccess": null,
+      "writeAccess": null,
+      "createdAt": "2023-04-01T21:02:10.781Z",
+      "updatedAt": "2023-04-01T21:02:10.781Z",
+      "CreatorId": "9e52d877-4dab-4aa6-95be-c7ba5d685689",
+      "CurrentVersionId": "60ec30c9-741f-4acb-b5f5-794934987802",
+      "LastUserId": "9e52d877-4dab-4aa6-95be-c7ba5d685689"
+    }
+  ]
+}

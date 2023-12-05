@@ -1,0 +1,61 @@
+{
+  "id": "0f1a4e20-a887-4467-a37b-1bc7a3deb9a9",
+  "name": "Test blueprint",
+  "tags": [],
+  "readAccess": null,
+  "writeAccess": null,
+  "createdAt": "2023-11-09T23:19:29.611Z",
+  "updatedAt": "2023-11-09T23:19:41.018Z",
+  "CreatorId": "9e52d877-4dab-4aa6-95be-c7ba5d685689",
+  "CustomerId": null,
+  "data": {
+    "grid": "infinite",
+    "name": "Test blueprint",
+    "text": [],
+    "edges": [],
+    "icons": [],
+    "nodes": [
+      {
+        "id": "d801fe26-1f73-49a5-bbe9-23c5fb0888e0",
+        "type": "ec2",
+        "mapPos": [
+          -2,
+          11
+        ],
+        "region": "us-east-1",
+        "platform": "linux",
+        "transparent": false,
+        "instanceSize": "large",
+        "instanceType": "m5"
+      }
+    ],
+    "theme": {
+      "base": "light"
+    },
+    "groups": [],
+    "images": [],
+    "version": 4,
+    "surfaces": [],
+    "shareDocs": false,
+    "connectors": [],
+    "projection": "isometric",
+    "liveOptions": {
+      "autoLabel": true,
+      "autoConnect": true,
+      "excludedTypes": [
+        "ebs",
+        "dxconnection",
+        "natgateway",
+        "internetgateway",
+        "vpngateway",
+        "customergateway"
+      ],
+      "updatesEnabled": true,
+      "updateAllOnScan": true,
+      "updateGroupsOnScan": true,
+      "updateNodeOnSelect": true
+    },
+    "disabledLayers": []
+  },
+  "LastUserId": "9e52d877-4dab-4aa6-95be-c7ba5d685689"
+}

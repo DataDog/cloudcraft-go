@@ -1,0 +1,34 @@
+{
+  "blueprints": [
+    {
+      "id": "b8998090-1879-40de-bd64-48af684fcde7",
+      "name": "TARDIS Achitecture",
+      "tags": [],
+      "readAccess": [
+        "team/455c1fd4-3384-4f4c-834b-66ff7d5f4a31"
+      ],
+      "writeAccess": [
+        "team/455c1fd4-3384-4f4c-834b-66ff7d5f4a31"
+      ],
+      "createdAt": "2022-06-16T22:24:38.256Z",
+      "updatedAt": "2022-09-29T18:26:36.848Z",
+      "CreatorId": "151cb27f-2cc2-4d16-aca5-dc6452a8e3b9",
+      "LastUserId": "151cb27f-2cc2-4d16-aca5-dc6452a8e3b9"
+    },
+    {
+      "id": "fbeb3cc5-0324-43c4-ae2d-0bc419f3530a",
+      "name": "Generic blueprint for tests",
+      "tags": [
+        "tests",
+        "AWS",
+        "us-east-1",
+        "Cloudcraft (Documentation)",
+        "Cloudcraft (SDKs)"
+      ],
+      "readAccess": null,
+      "writeAccess": null,
+      "createdAt": "2022-06-30T16:00:42.637Z",
+      "updatedAt": "2022-09-23T04:21:24.294Z",
+      "CreatorId": "a1ca7051-41de-417b-b1a1-47b16efd1af1",
+      "LastUserId": "a1ca7051-41de-417b-b1a1-47b16efd1af1"
+    }
