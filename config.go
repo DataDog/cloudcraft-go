@@ -47,7 +47,7 @@ const (
 
 	// DefaultTimeout is the default timeout for requests made by the Cloudcraft
 	// API client.
-	DefaultTimeout time.Duration = time.Second * 80
+	DefaultTimeout time.Duration = time.Second * 120
 )
 
 // Environment variables used to configure the Config struct.
