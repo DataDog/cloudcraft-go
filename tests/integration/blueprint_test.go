@@ -49,9 +49,9 @@ func TestBlueprint(t *testing.T) {
 
 	give = &cloudcraft.Blueprint{
 		ID:   blueprintID,
-		Name: blueprintName + " (Updated)",
+		Name: blueprintName + _updatedSuffix,
 		Data: &cloudcraft.BlueprintData{
-			Name: blueprintName + " (Updated)",
+			Name: blueprintName + _updatedSuffix,
 			Nodes: []map[string]any{
 				{
 					"id":           "98172baa-a059-4b04-832d-8a7f5d14b595",

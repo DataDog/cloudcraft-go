@@ -66,7 +66,7 @@ func TestAzure(t *testing.T) {
 
 	give = &cloudcraft.AzureAccount{
 		ID:             accountID,
-		Name:           accountName + " (Updated)",
+		Name:           accountName + _updatedSuffix,
 		ApplicationID:  appID,
 		DirectoryID:    directoryID,
 		SubscriptionID: subscriptionID,

@@ -10,6 +10,8 @@ import (
 	"testing"
 )
 
+const _updatedSuffix string = " (Updated)"
+
 func TestMain(m *testing.M) {
 	// Call flag.Parse explicitly to prevent testing.Short() from panicking.
 	flag.Parse()

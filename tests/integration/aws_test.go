@@ -55,7 +55,7 @@ func TestAWS(t *testing.T) {
 
 	give = &cloudcraft.AWSAccount{
 		ID:      accountID,
-		Name:    accountName + " (Updated)",
+		Name:    accountName + _updatedSuffix,
 		RoleARN: arn,
 	}
 
