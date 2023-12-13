@@ -1,6 +1,6 @@
 # cloudcraft-go
 
-[![Go Documentation](https://godocs.io/github.com/DataDog/cloudcraft-go?status.svg)](https://godocs.io/github.com/DataDog/cloudcraft-go)
+[![Go Documentation](http://img.shields.io/badge/godoc-reference-blue.svg?style=flat)](https://pkg.go.dev/github.com/DataDog/cloudcraft-go)
 [![Go Report Card](https://goreportcard.com/badge/github.com/DataDog/cloudcraft-go)](https://goreportcard.com/report/github.com/DataDog/cloudcraft-go)
 
 ![Cloudcraft diagram](https://static.cloudcraft.co/sdk/cloudcraft-sdk-example-1.svg)
