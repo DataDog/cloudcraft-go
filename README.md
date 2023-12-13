@@ -29,7 +29,13 @@ To install `cloudcraft-go`, run:
 go get github.com/DataDog/cloudcraft-go
 ```
 
-## Usage
+## Go SDK Documentation
+
+Usage details and more examples, please [see the Go reference documentation](https://godocs.io/github.com/DataDog/cloudcraft-go).
+
+## Example Usage
+
+In the below example the Cloudcraft API key is read from the `CLOUDCRAFT_API_KEY` environment variable. Alternatively, pass in the key to the configuration directly.
 
 ```go
 package main
@@ -69,8 +75,6 @@ func main() {
 	}
 }
 ```
-
-For more examples and usage details, please [check the Go reference documentation](https://godocs.io/github.com/DataDog/cloudcraft-go).
 
 ## Contributing
 
