@@ -2,7 +2,6 @@
 // This product includes software developed at Datadog (https://www.datadoghq.com/).
 // Copyright 2023-Present Datadog, Inc.
 
-// Package cloudcraft provides a Go client for [the Cloudcraft API].
-//
-// [the Cloudcraft API]: https://developers.cloudcraft.co
+// Package cloudcraft provides a Go SDK for rendering AWS and Azure diagrams
+// using the Cloudcraft API.
 package cloudcraft
