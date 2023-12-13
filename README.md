@@ -3,7 +3,23 @@
 [![Go Documentation](https://godocs.io/github.com/DataDog/cloudcraft-go?status.svg)](https://godocs.io/github.com/DataDog/cloudcraft-go)
 [![Go Report Card](https://goreportcard.com/badge/github.com/DataDog/cloudcraft-go)](https://goreportcard.com/report/github.com/DataDog/cloudcraft-go)
 
-Package `cloudcraft-go` is a simple and easy-to-use package for interacting with [Cloudcraft's developer API](https://developers.cloudcraft.co/).
+![Cloudcraft diagram](https://static.cloudcraft.co/sdk/cloudcraft-sdk-example-1.svg)
+
+Visualize your cloud architecture with Cloudcraft by Datadog, [the best way to create smart AWS and Azure diagrams](https://www.cloudcraft.co/).
+
+Cloudcraft supports both manual and programmatic diagramming, as well as automatic reverse engineering of existing cloud environments into
+beautiful system architecture diagrams.
+
+This `cloudcraft-go` package provides an easy-to-use native Go SDK for interacting with [the Cloudcraft API](https://developers.cloudcraft.co/).
+
+Use case examples:
+- Snapshot and visually compare your live AWS or Azure environment before and after a deployment, in your app or as part of your automated CI pipeline
+- Download an inventory of all your cloud resources from a linked account as JSON
+- Write a converter from a third party data format to Cloudcraft diagrams
+- Backup, export & import your Cloudcraft data
+- Programmatically create Cloudcraft diagrams
+
+This SDK requires a [Cloudcraft API key](https://developers.cloudcraft.co/#authentication) to use. [A free trial of Cloudcraft Pro](https://www.cloudcraft.co/pricing) with API access is available.
 
 ## Installation
 
