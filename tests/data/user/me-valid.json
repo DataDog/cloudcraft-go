@@ -1,0 +1,12 @@
+{
+  "id": "b92570ba-8969-4e41-b6a3-3d672b44f9f5",
+  "name": "Go SDK",
+  "email": "hi@example.com",
+  "settings": {
+    "currency": "USD",
+    "firstTime": false
+  },
+  "createdAt": "2022-10-10T16:52:40.771Z",
+  "updatedAt": "2023-11-08T14:44:28.872Z",
+  "accessedAt": "2023-11-08T14:44:28.872Z"
+}

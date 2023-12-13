@@ -1,0 +1,5 @@
+{
+  "accountId": "912185983511",
+  "externalId": "4414aef4-8f04-4b0b-8425-d73b84dcaa2d",
+  "awsConsoleUrl": "https://console.aws.amazon.com/iam/home?#/roles$new?step=type&roleType=crossAccount&isThirdParty&accountID=912185983511&externalID=4414aef4-8f04-4b0b-8425-d73b84dcaa2d&roleName=cloudcraft&policies=arn:aws:iam::aws:policy%2FReadOnlyAccess"
+}

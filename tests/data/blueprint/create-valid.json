@@ -1,0 +1,17 @@
+{
+  "id": "31c014b0-279a-4662-9fd4-3f104a2c4f84",
+  "name": "My new blueprint",
+  "CreatorId": "9e52d877-4dab-4aa6-95be-c7ba5d685689",
+  "tags": null,
+  "readAccess": null,
+  "writeAccess": null,
+  "updatedAt": "2023-11-14T22:00:39.332Z",
+  "createdAt": "2023-11-14T22:00:39.332Z",
+  "CustomerId": null,
+  "data": {
+    "name": "My new blueprint",
+    "surfaces": [],
+    "version": 4
+  },
+  "LastUserId": "9e52d877-4dab-4aa6-95be-c7ba5d685689"
+}

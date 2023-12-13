@@ -1,0 +1,1 @@
+category,type,region,count,unitPrice,cost,instanceType,instanceSize,platform,role,engine,storage,dataGb,snapshots,volume,iops,memory,mRequests,computeDuration,readUnits,writeUnits,readConsistency,shards,putUnits,extendedRetention,emailsOut,requests,notifications,notificationType,cache,apiCalls,tier,instance

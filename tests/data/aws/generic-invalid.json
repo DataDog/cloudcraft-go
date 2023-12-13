@@ -1,0 +1,20 @@
+  "accounts": [
+    {
+      "id": "47830a91-51b7-4708-b9b2-5f3d121fc039",
+      "name": "Go SDK Test",
+      "roleArn": "arn:aws:iam::643880554691j:role/cloudcraft",
+      "externalId": "61fc01d6-3e6f-47ab-bc44-53fab97c217a",
+      "readAccess": [
+        "team/5f209338-50a1-495f-90dd-73251dec7329",
+        "team/d7cd0211-85a7-45fc-9292-8d5c62cef70a"
+      ],
+      "writeAccess": [
+        "team/5f209338-50a1-495f-90dd-73251dec7329",
+        "team/d7cd0211-85a7-45fc-9292-8d5c62cef70a"
+      ],
+      "createdAt": "2019-02-19T16:20:34.042Z",
+      "updatedAt": "2022-08-05T18:13:05.625Z",
+      "CreatorId": "280ccb78-6a06-4e28-adad-8d16d413be50"
+    }
+  ]
+}
