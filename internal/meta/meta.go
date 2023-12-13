@@ -10,7 +10,7 @@ const (
 	Name string = "cloudcraft-go"
 
 	// Version is the version of the package.
-	Version string = "0.1.0"
+	Version string = "1.0.0"
 
 	// UserAgent is the user agent string for the package.
 	UserAgent string = Name + "/" + Version
