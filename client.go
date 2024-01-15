@@ -219,9 +219,15 @@ func (c *Client) do(ctx context.Context, req *http.Request) (*Response, error) {
 		return nil, fmt.Errorf("%w: %d", ErrRequestFailed, resp.StatusCode)
 	}
 
-	var buffer bytes.Buffer
+	var buffer *bytes.Buffer
 
-	_, err = io.Copy(&buffer, resp.Body)
+	if resp.ContentLength > 0 {
+		buffer = bytes.NewBuffer(make([]byte, 0, resp.ContentLength))
+	} else {
+		buffer = bytes.NewBuffer(make([]byte, 0))
+	}
+
+	_, err = io.Copy(buffer, resp.Body)
 	if err != nil {
 		return nil, fmt.Errorf("%w", err)
 	}
