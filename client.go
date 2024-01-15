@@ -5,6 +5,7 @@
 package cloudcraft
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 	"io"
@@ -218,14 +219,15 @@ func (c *Client) do(ctx context.Context, req *http.Request) (*Response, error) {
 		return nil, fmt.Errorf("%w: %d", ErrRequestFailed, resp.StatusCode)
 	}
 
-	body, err := io.ReadAll(resp.Body)
+	var buffer bytes.Buffer
+	_, err = io.Copy(&buffer, resp.Body)
 	if err != nil {
 		return nil, fmt.Errorf("%w", err)
 	}
 
 	return &Response{
 		Header: resp.Header,
-		Body:   body,
+		Body:   buffer.Bytes(),
 		Status: resp.StatusCode,
 	}, nil
 }
