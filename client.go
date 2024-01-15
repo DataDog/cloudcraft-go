@@ -220,6 +220,7 @@ func (c *Client) do(ctx context.Context, req *http.Request) (*Response, error) {
 	}
 
 	var buffer bytes.Buffer
+
 	_, err = io.Copy(&buffer, resp.Body)
 	if err != nil {
 		return nil, fmt.Errorf("%w", err)
