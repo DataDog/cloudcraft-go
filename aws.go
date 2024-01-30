@@ -99,7 +99,7 @@ func (s *AWSService) List(ctx context.Context) ([]*AWSAccount, *Response, error)
 		return nil, nil, fmt.Errorf("%w", err)
 	}
 
-	resp, err := s.client.do(ctx, req)
+	resp, err := s.client.do(req)
 	if err != nil {
 		return nil, resp, fmt.Errorf("%w", err)
 	}
@@ -159,7 +159,7 @@ func (s *AWSService) Create(ctx context.Context, account *AWSAccount) (*AWSAccou
 		return nil, nil, fmt.Errorf("%w", err)
 	}
 
-	resp, err := s.client.do(ctx, req)
+	resp, err := s.client.do(req)
 	if err != nil {
 		return nil, resp, fmt.Errorf("%w", err)
 	}
@@ -220,7 +220,7 @@ func (s *AWSService) Update(ctx context.Context, account *AWSAccount) (*Response
 		return nil, fmt.Errorf("%w", err)
 	}
 
-	resp, err := s.client.do(ctx, req)
+	resp, err := s.client.do(req)
 	if err != nil {
 		return resp, fmt.Errorf("%w", err)
 	}
@@ -259,7 +259,7 @@ func (s *AWSService) Delete(ctx context.Context, id string) (*Response, error) {
 		return nil, fmt.Errorf("%w", err)
 	}
 
-	resp, err := s.client.do(ctx, req)
+	resp, err := s.client.do(req)
 	if err != nil {
 		return resp, fmt.Errorf("%w", err)
 	}
@@ -329,7 +329,7 @@ func (s *AWSService) Snapshot(
 		return nil, nil, fmt.Errorf("%w", err)
 	}
 
-	resp, err := s.client.do(ctx, req)
+	resp, err := s.client.do(req)
 	if err != nil {
 		return nil, resp, fmt.Errorf("%w", err)
 	}
@@ -364,7 +364,7 @@ func (s *AWSService) IAMParameters(ctx context.Context) (*IAMParams, *Response, 
 		return nil, nil, fmt.Errorf("%w", err)
 	}
 
-	resp, err := s.client.do(ctx, req)
+	resp, err := s.client.do(req)
 	if err != nil {
 		return nil, resp, fmt.Errorf("%w", err)
 	}
@@ -403,7 +403,7 @@ func (s *AWSService) IAMPolicy(ctx context.Context) (*IAMPolicy, *Response, erro
 		return nil, nil, fmt.Errorf("%w", err)
 	}
 
-	resp, err := s.client.do(ctx, req)
+	resp, err := s.client.do(req)
 	if err != nil {
 		return nil, resp, fmt.Errorf("%w", err)
 	}

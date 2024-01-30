@@ -85,7 +85,7 @@ func (s *AzureService) List(ctx context.Context) ([]*AzureAccount, *Response, er
 		return nil, nil, fmt.Errorf("%w", err)
 	}
 
-	resp, err := s.client.do(ctx, req)
+	resp, err := s.client.do(req)
 	if err != nil {
 		return nil, resp, fmt.Errorf("%w", err)
 	}
@@ -157,7 +157,7 @@ func (s *AzureService) Create(ctx context.Context, account *AzureAccount) (*Azur
 		return nil, nil, fmt.Errorf("%w", err)
 	}
 
-	resp, err := s.client.do(ctx, req)
+	resp, err := s.client.do(req)
 	if err != nil {
 		return nil, resp, fmt.Errorf("%w", err)
 	}
@@ -230,7 +230,7 @@ func (s *AzureService) Update(ctx context.Context, account *AzureAccount) (*Resp
 		return nil, fmt.Errorf("%w", err)
 	}
 
-	resp, err := s.client.do(ctx, req)
+	resp, err := s.client.do(req)
 	if err != nil {
 		return resp, fmt.Errorf("%w", err)
 	}
@@ -269,7 +269,7 @@ func (s *AzureService) Delete(ctx context.Context, id string) (*Response, error)
 		return nil, fmt.Errorf("%w", err)
 	}
 
-	resp, err := s.client.do(ctx, req)
+	resp, err := s.client.do(req)
 	if err != nil {
 		return resp, fmt.Errorf("%w", err)
 	}
@@ -339,7 +339,7 @@ func (s *AzureService) Snapshot(
 		return nil, nil, fmt.Errorf("%w", err)
 	}
 
-	resp, err := s.client.do(ctx, req)
+	resp, err := s.client.do(req)
 	if err != nil {
 		return nil, resp, fmt.Errorf("%w", err)
 	}

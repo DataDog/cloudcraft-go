@@ -191,13 +191,10 @@ type Response struct {
 }
 
 // do performs an HTTP request using the underlying HTTP client.
-func (c *Client) do(ctx context.Context, req *http.Request) (*Response, error) {
-	if err := c.rateLimiter.Wait(ctx); err != nil {
+func (c *Client) do(req *http.Request) (*Response, error) {
+	if err := c.rateLimiter.Wait(req.Context()); err != nil {
 		return nil, fmt.Errorf("%w", err)
 	}
-
-	// Use the context from the parameter.
-	req = req.WithContext(ctx)
 
 	resp, err := c.httpClient.Do(req)
 	if err != nil {

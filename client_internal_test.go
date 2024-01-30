@@ -225,7 +225,7 @@ func TestDo(t *testing.T) {
 				t.Fatalf("Request() error = %v", err)
 			}
 
-			got, err := client.do(tt.context, req)
+			got, err := client.do(req)
 			if (err != nil) != tt.wantErr {
 				t.Fatalf("Do() error = %v, wantErr %v", err, tt.wantErr)
 			}
