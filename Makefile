@@ -10,7 +10,7 @@ export
 
 all: pre-commit
 
-pre-commit: tidy fmt lint vulnerabilities test build clean # Runs all pre-commit checks.
+pre-commit: tidy fmt lint vulnerabilities test clean # Runs all pre-commit checks.
 
 commit: pre-commit # Commits the changes to the repository.
 	$(GIT) commit -s
@@ -46,4 +46,4 @@ test/coverage: # Generates a coverage profile and open it in a browser.
 clean: # Cleans cache files from tests and deletes any build output.
 	$(RM) -f cover.out
 
-.PHONY: all pre-commit commit push doc tidy fmt lint vulnerabilities test test/coverage clean
+.PHONY: all pre-commit commit push doc tidy fmt lint vulnerabilities test test/integration test/coverage clean
