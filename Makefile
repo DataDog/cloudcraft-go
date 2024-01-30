@@ -15,9 +15,6 @@ pre-commit: tidy fmt lint vulnerabilities test clean # Runs all pre-commit check
 commit: pre-commit # Commits the changes to the repository.
 	$(GIT) commit -s
 
-push: commit # Pushes the changes to the repository.
-	$(GIT) push origin trunk
-
 doc: # Serve the documentation locally.
 	$(GO) run golang.org/x/tools/cmd/godoc@latest -http=localhost:1967
 
@@ -46,4 +43,4 @@ test/coverage: # Generates a coverage profile and open it in a browser.
 clean: # Cleans cache files from tests and deletes any build output.
 	$(RM) -f cover.out
 
-.PHONY: all pre-commit commit push doc tidy fmt lint vulnerabilities test test/integration test/coverage clean
+.PHONY: all pre-commit commit doc tidy fmt lint vulnerabilities test test/integration test/coverage clean
