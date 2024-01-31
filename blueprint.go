@@ -228,7 +228,7 @@ func (s *BlueprintService) List(ctx context.Context) ([]*Blueprint, *Response, e
 		return nil, nil, fmt.Errorf("%w", err)
 	}
 
-	ret, err := s.client.do(ctx, req)
+	ret, err := s.client.do(req)
 	if err != nil {
 		return nil, nil, fmt.Errorf("%w", err)
 	}
@@ -276,7 +276,7 @@ func (s *BlueprintService) Get(ctx context.Context, id string) (*Blueprint, *Res
 		return nil, nil, fmt.Errorf("%w", err)
 	}
 
-	resp, err := s.client.do(ctx, req)
+	resp, err := s.client.do(req)
 	if err != nil {
 		return nil, nil, fmt.Errorf("%w", err)
 	}
@@ -323,7 +323,7 @@ func (s *BlueprintService) Create(ctx context.Context, blueprint *Blueprint) (*B
 		return nil, nil, fmt.Errorf("%w", err)
 	}
 
-	resp, err := s.client.do(ctx, req)
+	resp, err := s.client.do(req)
 	if err != nil {
 		return nil, nil, fmt.Errorf("%w", err)
 	}
@@ -379,7 +379,7 @@ func (s *BlueprintService) Update(ctx context.Context, blueprint *Blueprint, eta
 		req.Header.Set("If-Match", etag)
 	}
 
-	resp, err := s.client.do(ctx, req)
+	resp, err := s.client.do(req)
 	if err != nil {
 		return nil, fmt.Errorf("%w", err)
 	}
@@ -417,7 +417,7 @@ func (s *BlueprintService) Delete(ctx context.Context, id string) (*Response, er
 		return nil, fmt.Errorf("%w", err)
 	}
 
-	resp, err := s.client.do(ctx, req)
+	resp, err := s.client.do(req)
 	if err != nil {
 		return nil, fmt.Errorf("%w", err)
 	}
@@ -479,7 +479,7 @@ func (s *BlueprintService) ExportImage(
 		return nil, nil, fmt.Errorf("%w", err)
 	}
 
-	resp, err := s.client.do(ctx, req)
+	resp, err := s.client.do(req)
 	if err != nil {
 		return nil, nil, fmt.Errorf("%w", err)
 	}
@@ -541,7 +541,7 @@ func (s *BlueprintService) ExportBudget(
 		return nil, nil, fmt.Errorf("%w", err)
 	}
 
-	resp, err := s.client.do(ctx, req)
+	resp, err := s.client.do(req)
 	if err != nil {
 		return nil, nil, fmt.Errorf("%w", err)
 	}

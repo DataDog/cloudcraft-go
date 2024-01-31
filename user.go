@@ -57,7 +57,7 @@ func (s *UserService) Me(ctx context.Context) (*User, *Response, error) {
 		return nil, nil, err
 	}
 
-	ret, err := s.client.do(ctx, req)
+	ret, err := s.client.do(req)
 	if err != nil {
 		return nil, nil, err
 	}
