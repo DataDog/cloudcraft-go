@@ -12,7 +12,7 @@ import (
 	"github.com/DataDog/cloudcraft-go/internal/xos"
 )
 
-func TestGetEnv(t *testing.T) { //nolint:paralleltest // Test is not safe to run in parallel.
+func TestGetEnv(t *testing.T) {
 	tests := []struct {
 		name     string
 		key      string
@@ -43,7 +43,7 @@ func TestGetEnv(t *testing.T) { //nolint:paralleltest // Test is not safe to run
 		},
 	}
 
-	for _, tt := range tests { //nolint:paralleltest // See above.
+	for _, tt := range tests { //nolint:paralleltest // Test is not safe to run in parallel.
 		t.Run(tt.name, func(t *testing.T) {
 			t.Setenv(tt.key, tt.envVal)
 			defer os.Unsetenv(tt.key)
@@ -57,7 +57,7 @@ func TestGetEnv(t *testing.T) { //nolint:paralleltest // Test is not safe to run
 	}
 }
 
-func TestGetDurationEnv(t *testing.T) { //nolint:paralleltest // See above.
+func TestGetDurationEnv(t *testing.T) {
 	tests := []struct {
 		name     string
 		key      string
@@ -88,7 +88,7 @@ func TestGetDurationEnv(t *testing.T) { //nolint:paralleltest // See above.
 		},
 	}
 
-	for _, tt := range tests { //nolint:paralleltest // See above.
+	for _, tt := range tests { //nolint:paralleltest // Test is not safe to run in parallel.
 		t.Run(tt.name, func(t *testing.T) {
 			t.Setenv(tt.key, tt.envVal)
 			defer os.Unsetenv(tt.key)

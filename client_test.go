@@ -73,7 +73,7 @@ func TestNewClient(t *testing.T) {
 	}
 }
 
-func TestNewClientWithNilConfig(t *testing.T) { //nolint:paralleltest // t.Setenv is not thread-safe
+func TestNewClientWithNilConfig(t *testing.T) {
 	// Setting environment variables required for NewConfigFromEnv.
 	t.Setenv("CLOUDCRAFT_PROTOCOL", cloudcraft.DefaultScheme)
 	t.Setenv("CLOUDCRAFT_HOST", cloudcraft.DefaultHost)
