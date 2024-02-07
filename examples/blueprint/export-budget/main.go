@@ -20,7 +20,7 @@ func main() {
 		log.Fatalf("usage: %s <blueprint-id>", os.Args[0])
 	}
 
-	// Create new Config to be initialize a Client.
+	// Create new Config to initialize a Client.
 	cfg := cloudcraft.NewConfig(key)
 
 	// Create a new Client instance with the given Config.

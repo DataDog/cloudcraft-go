@@ -16,7 +16,7 @@ func main() {
 		log.Fatal("missing env var: CLOUDCRAFT_API_KEY")
 	}
 
-	// Create new Config to be initialize a Client.
+	// Create new Config to initialize a Client.
 	cfg := cloudcraft.NewConfig(key)
 
 	// Create a new Client instance with the given Config.
