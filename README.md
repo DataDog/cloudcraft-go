@@ -76,6 +76,8 @@ func main() {
 }
 ```
 
+More examples can be found the [examples](examples/) directory.
+
 ## Contributing
 
 Anyone can help make `cloudcraft-go` better. Check out [the contribution guidelines](CONTRIBUTING.md) for more information.
