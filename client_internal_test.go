@@ -100,7 +100,7 @@ func TestDo(t *testing.T) {
 	}{
 		{
 			name: "Valid response",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write([]byte(`Hello, World!`))
@@ -121,7 +121,7 @@ func TestDo(t *testing.T) {
 		},
 		{
 			name: "Context timeout",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				time.Sleep(100 * time.Millisecond)
 
 				w.WriteHeader(http.StatusOK)
@@ -139,7 +139,7 @@ func TestDo(t *testing.T) {
 		},
 		{
 			name: "Invalid HTTP status code",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusTeapot)
 			},
 			context: ctx,
@@ -147,7 +147,7 @@ func TestDo(t *testing.T) {
 		},
 		{
 			name: "HTTP Client Do error",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				conn, _, _ := w.(http.Hijacker).Hijack() //nolint:forcetypeassert // should be fine for testing
 				conn.Close()
 			},
@@ -156,7 +156,7 @@ func TestDo(t *testing.T) {
 		},
 		{
 			name: "Response Body Read Error",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				// Instead of writing to the response writer, we'll set a custom
@@ -179,7 +179,7 @@ func TestDo(t *testing.T) {
 		},
 		{
 			name: "Rate Limiter Error",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 			},
 			context: func() context.Context {

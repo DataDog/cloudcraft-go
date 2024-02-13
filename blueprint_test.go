@@ -41,7 +41,7 @@ func TestBlueprintService_List(t *testing.T) {
 	}{
 		{
 			name: "Valid blueprint data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(validTestData)
@@ -65,7 +65,7 @@ func TestBlueprintService_List(t *testing.T) {
 		},
 		{
 			name: "Invalid blueprint data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(invalidTestData)
@@ -76,7 +76,7 @@ func TestBlueprintService_List(t *testing.T) {
 		},
 		{
 			name: "API error response",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusInternalServerError)
 			},
 			context: ctx,
@@ -85,7 +85,7 @@ func TestBlueprintService_List(t *testing.T) {
 		},
 		{
 			name: "Empty blueprint data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(emptyTestData)
@@ -96,7 +96,7 @@ func TestBlueprintService_List(t *testing.T) {
 		},
 		{
 			name:    "Nil context",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: nil,
 			want:    nil,
 			wantErr: true,
@@ -150,7 +150,7 @@ func TestBlueprintService_Get(t *testing.T) {
 	}{
 		{
 			name: "Valid blueprint data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(validTestData)
@@ -219,7 +219,7 @@ func TestBlueprintService_Get(t *testing.T) {
 		},
 		{
 			name: "Invalid blueprint data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(invalidTestData)
@@ -231,7 +231,7 @@ func TestBlueprintService_Get(t *testing.T) {
 		},
 		{
 			name: "API error response",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusInternalServerError)
 			},
 			context: ctx,
@@ -241,7 +241,7 @@ func TestBlueprintService_Get(t *testing.T) {
 		},
 		{
 			name:    "Nil context",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: nil,
 			id:      "0f1a4e20-a887-4467-a37b-1bc7a3deb9a9",
 			want:    nil,
@@ -249,7 +249,7 @@ func TestBlueprintService_Get(t *testing.T) {
 		},
 		{
 			name:    "Missing ID",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: ctx,
 			id:      "",
 			want:    nil,
@@ -304,7 +304,7 @@ func TestBlueprintService_Create(t *testing.T) {
 	}{
 		{
 			name: "Valid blueprint data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusCreated)
 
 				w.Write(validTestData)
@@ -334,7 +334,7 @@ func TestBlueprintService_Create(t *testing.T) {
 		},
 		{
 			name: "Invalid blueprint data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusCreated)
 
 				w.Write(invalidTestData)
@@ -348,7 +348,7 @@ func TestBlueprintService_Create(t *testing.T) {
 		},
 		{
 			name: "API error response",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusInternalServerError)
 			},
 			context: ctx,
@@ -360,7 +360,7 @@ func TestBlueprintService_Create(t *testing.T) {
 		},
 		{
 			name:    "Nil context",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: nil,
 			give: &cloudcraft.Blueprint{
 				Name: "My new blueprint",
@@ -370,7 +370,7 @@ func TestBlueprintService_Create(t *testing.T) {
 		},
 		{
 			name:    "Nil blueprint",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: ctx,
 			give:    nil,
 			want:    nil,
@@ -422,7 +422,7 @@ func TestBlueprintService_Update(t *testing.T) {
 	}{
 		{
 			name: "Valid blueprint data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusNoContent)
 			},
 			context: ctx,
@@ -444,7 +444,7 @@ func TestBlueprintService_Update(t *testing.T) {
 		},
 		{
 			name: "Valid blueprint data without etag",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusNoContent)
 			},
 			context: ctx,
@@ -466,7 +466,7 @@ func TestBlueprintService_Update(t *testing.T) {
 		},
 		{
 			name:    "Nil context",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: nil,
 			give: &cloudcraft.Blueprint{
 				ID:   "31c014b0-279a-4662-9fd4-3f104a2c4f84",
@@ -477,7 +477,7 @@ func TestBlueprintService_Update(t *testing.T) {
 		},
 		{
 			name: "API error response",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusInternalServerError)
 			},
 			context: ctx,
@@ -490,7 +490,7 @@ func TestBlueprintService_Update(t *testing.T) {
 		},
 		{
 			name:    "Nil blueprint",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: ctx,
 			give:    nil,
 			want:    nil,
@@ -498,7 +498,7 @@ func TestBlueprintService_Update(t *testing.T) {
 		},
 		{
 			name:    "Missing blueprint ID",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: ctx,
 			give: &cloudcraft.Blueprint{
 				Name: "My updated blueprint",
@@ -551,7 +551,7 @@ func TestBlueprintService_Delete(t *testing.T) {
 	}{
 		{
 			name: "Valid blueprint data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusNoContent)
 			},
 			context: ctx,
@@ -569,7 +569,7 @@ func TestBlueprintService_Delete(t *testing.T) {
 		},
 		{
 			name: "API error response",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusInternalServerError)
 			},
 			context: ctx,
@@ -579,7 +579,7 @@ func TestBlueprintService_Delete(t *testing.T) {
 		},
 		{
 			name:    "Nil context",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: nil,
 			give:    "31c014b0-279a-4662-9fd4-3f104a2c4f84",
 			want:    nil,
@@ -587,7 +587,7 @@ func TestBlueprintService_Delete(t *testing.T) {
 		},
 		{
 			name:    "Missing blueprint ID",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: ctx,
 			give:    "",
 			want:    nil,
@@ -644,7 +644,7 @@ func TestBlueprintService_ExportImages(t *testing.T) {
 	}{
 		{
 			name: "Valid blueprint export",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(validTestData)
@@ -662,7 +662,7 @@ func TestBlueprintService_ExportImages(t *testing.T) {
 		},
 		{
 			name: "API error response",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusInternalServerError)
 			},
 			context:    ctx,
@@ -678,7 +678,7 @@ func TestBlueprintService_ExportImages(t *testing.T) {
 		},
 		{
 			name:       "Nil context",
-			handler:    func(w http.ResponseWriter, r *http.Request) {},
+			handler:    func(_ http.ResponseWriter, _ *http.Request) {},
 			context:    nil,
 			giveID:     "0f1a4e20-a887-4467-a37b-1bc7a3deb9a9",
 			giveFormat: "png",
@@ -692,7 +692,7 @@ func TestBlueprintService_ExportImages(t *testing.T) {
 		},
 		{
 			name: "Nil image params",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(validTestData)
@@ -707,7 +707,7 @@ func TestBlueprintService_ExportImages(t *testing.T) {
 		},
 		{
 			name:       "Missing blueprint ID",
-			handler:    func(w http.ResponseWriter, r *http.Request) {},
+			handler:    func(_ http.ResponseWriter, _ *http.Request) {},
 			context:    ctx,
 			giveID:     "",
 			giveFormat: "png",
@@ -721,7 +721,7 @@ func TestBlueprintService_ExportImages(t *testing.T) {
 		},
 		{
 			name: "Missing image format",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(validTestData)
@@ -802,7 +802,7 @@ func TestBlueprintService_ExportBudget(t *testing.T) {
 	}{
 		{
 			name: "Valid budget data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(validTestData)
@@ -820,7 +820,7 @@ func TestBlueprintService_ExportBudget(t *testing.T) {
 		},
 		{
 			name: "API error response",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusInternalServerError)
 			},
 			context:    ctx,
@@ -836,7 +836,7 @@ func TestBlueprintService_ExportBudget(t *testing.T) {
 		},
 		{
 			name:       "Nil context",
-			handler:    func(w http.ResponseWriter, r *http.Request) {},
+			handler:    func(_ http.ResponseWriter, _ *http.Request) {},
 			context:    nil,
 			giveID:     "0f1a4e20-a887-4467-a37b-1bc7a3deb9a9",
 			giveFormat: "csv",
@@ -850,7 +850,7 @@ func TestBlueprintService_ExportBudget(t *testing.T) {
 		},
 		{
 			name: "Nil budget params",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(validTestData)
@@ -864,7 +864,7 @@ func TestBlueprintService_ExportBudget(t *testing.T) {
 		},
 		{
 			name:       "Missing blueprint ID",
-			handler:    func(w http.ResponseWriter, r *http.Request) {},
+			handler:    func(_ http.ResponseWriter, _ *http.Request) {},
 			context:    ctx,
 			giveID:     "",
 			giveFormat: "csv",
@@ -878,7 +878,7 @@ func TestBlueprintService_ExportBudget(t *testing.T) {
 		},
 		{
 			name: "Missing budget format",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(validTestData)

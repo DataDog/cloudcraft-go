@@ -41,7 +41,7 @@ func TestAzureService_List(t *testing.T) {
 	}{
 		{
 			name: "Valid Azure account data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(validTestData)
@@ -67,7 +67,7 @@ func TestAzureService_List(t *testing.T) {
 		},
 		{
 			name: "Invalid Azure account data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(invalidTestData)
@@ -78,7 +78,7 @@ func TestAzureService_List(t *testing.T) {
 		},
 		{
 			name: "Empty Azure account data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(emptyTestData)
@@ -89,7 +89,7 @@ func TestAzureService_List(t *testing.T) {
 		},
 		{
 			name:    "Nil context",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: nil,
 			want:    nil,
 			wantErr: true,
@@ -143,7 +143,7 @@ func TestAzureService_Create(t *testing.T) {
 	}{
 		{
 			name: "Valid Azure account data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusCreated)
 
 				w.Write(validTestData)
@@ -174,7 +174,7 @@ func TestAzureService_Create(t *testing.T) {
 		},
 		{
 			name: "Invalid Azure account data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusBadRequest)
 
 				w.Write(invalidTestData)
@@ -192,7 +192,7 @@ func TestAzureService_Create(t *testing.T) {
 		},
 		{
 			name:    "API error response",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: ctx,
 			give: &cloudcraft.AzureAccount{
 				Name:           "Go SDK Test",
@@ -206,7 +206,7 @@ func TestAzureService_Create(t *testing.T) {
 		},
 		{
 			name:    "Nil context",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: nil,
 			give: &cloudcraft.AzureAccount{
 				Name:           "Go SDK Test",
@@ -220,7 +220,7 @@ func TestAzureService_Create(t *testing.T) {
 		},
 		{
 			name:    "Nil Azure account",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: ctx,
 			give:    nil,
 			want:    nil,
@@ -228,7 +228,7 @@ func TestAzureService_Create(t *testing.T) {
 		},
 		{
 			name:    "Empty name",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: ctx,
 			give: &cloudcraft.AzureAccount{
 				Name:           "",
@@ -242,7 +242,7 @@ func TestAzureService_Create(t *testing.T) {
 		},
 		{
 			name:    "Empty application ID",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: ctx,
 			give: &cloudcraft.AzureAccount{
 				Name:           "Go SDK Test",
@@ -256,7 +256,7 @@ func TestAzureService_Create(t *testing.T) {
 		},
 		{
 			name:    "Empty directory ID",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: ctx,
 			give: &cloudcraft.AzureAccount{
 				Name:           "Go SDK Test",
@@ -270,7 +270,7 @@ func TestAzureService_Create(t *testing.T) {
 		},
 		{
 			name:    "Empty subscription ID",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: ctx,
 			give: &cloudcraft.AzureAccount{
 				Name:           "Go SDK Test",
@@ -284,7 +284,7 @@ func TestAzureService_Create(t *testing.T) {
 		},
 		{
 			name:    "Empty client secret",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: ctx,
 			give: &cloudcraft.AzureAccount{
 				Name:           "Go SDK Test",
@@ -341,7 +341,7 @@ func TestAzureService_Update(t *testing.T) {
 	}{
 		{
 			name: "Valid Azure account data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusNoContent)
 			},
 			context: ctx,
@@ -366,7 +366,7 @@ func TestAzureService_Update(t *testing.T) {
 		},
 		{
 			name: "API error response",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusBadRequest)
 			},
 			context: ctx,
@@ -383,7 +383,7 @@ func TestAzureService_Update(t *testing.T) {
 		},
 		{
 			name:    "Nil Azure account",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: ctx,
 			give:    nil,
 			want:    nil,
@@ -391,7 +391,7 @@ func TestAzureService_Update(t *testing.T) {
 		},
 		{
 			name:    "Nil context",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: nil,
 			give: &cloudcraft.AzureAccount{
 				ID:             "4349ccdb-a2fd-4a89-a07b-48e3e330670b",
@@ -406,7 +406,7 @@ func TestAzureService_Update(t *testing.T) {
 		},
 		{
 			name:    "Empty ID",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: ctx,
 			give: &cloudcraft.AzureAccount{
 				ID:             "",
@@ -421,7 +421,7 @@ func TestAzureService_Update(t *testing.T) {
 		},
 		{
 			name:    "Empty name",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: ctx,
 			give: &cloudcraft.AzureAccount{
 				ID:             "4349ccdb-a2fd-4a89-a07b-48e3e330670b",
@@ -436,7 +436,7 @@ func TestAzureService_Update(t *testing.T) {
 		},
 		{
 			name:    "Empty Application ID",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: ctx,
 			give: &cloudcraft.AzureAccount{
 				ID:             "4349ccdb-a2fd-4a89-a07b-48e3e330670b",
@@ -451,7 +451,7 @@ func TestAzureService_Update(t *testing.T) {
 		},
 		{
 			name:    "Empty Directory ID",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: ctx,
 			give: &cloudcraft.AzureAccount{
 				ID:             "4349ccdb-a2fd-4a89-a07b-48e3e330670b",
@@ -466,7 +466,7 @@ func TestAzureService_Update(t *testing.T) {
 		},
 		{
 			name:    "Empty Subscription ID",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: ctx,
 			give: &cloudcraft.AzureAccount{
 				ID:             "4349ccdb-a2fd-4a89-a07b-48e3e330670b",
@@ -481,7 +481,7 @@ func TestAzureService_Update(t *testing.T) {
 		},
 		{
 			name:    "Empty Client Secret",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: ctx,
 			give: &cloudcraft.AzureAccount{
 				ID:             "4349ccdb-a2fd-4a89-a07b-48e3e330670b",
@@ -539,7 +539,7 @@ func TestAzureService_Delete(t *testing.T) {
 	}{
 		{
 			name: "Valid Azure account data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusNoContent)
 			},
 			context: ctx,
@@ -557,7 +557,7 @@ func TestAzureService_Delete(t *testing.T) {
 		},
 		{
 			name: "API error response",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusBadRequest)
 			},
 			context: ctx,
@@ -567,14 +567,14 @@ func TestAzureService_Delete(t *testing.T) {
 		},
 		{
 			name:    "Nil context",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			give:    "4349ccdb-a2fd-4a89-a07b-48e3e330670b",
 			want:    nil,
 			wantErr: true,
 		},
 		{
 			name:    "Empty ID",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: ctx,
 			give:    "",
 			want:    nil,
@@ -632,7 +632,7 @@ func TestAzureService_Snapshot(t *testing.T) {
 	}{
 		{
 			name: "Valid Azure account snapshot",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(validTestData)
@@ -651,7 +651,7 @@ func TestAzureService_Snapshot(t *testing.T) {
 		},
 		{
 			name: "API error response",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusBadRequest)
 			},
 			context:    ctx,
@@ -668,7 +668,7 @@ func TestAzureService_Snapshot(t *testing.T) {
 		},
 		{
 			name:       "Nil context",
-			handler:    func(w http.ResponseWriter, r *http.Request) {},
+			handler:    func(_ http.ResponseWriter, _ *http.Request) {},
 			giveID:     "4349ccdb-a2fd-4a89-a07b-48e3e330670b",
 			giveRegion: "centralus",
 			giveFormat: "png",
@@ -682,7 +682,7 @@ func TestAzureService_Snapshot(t *testing.T) {
 		},
 		{
 			name: "Nil snapshot params",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(validTestData)
@@ -698,7 +698,7 @@ func TestAzureService_Snapshot(t *testing.T) {
 		},
 		{
 			name:       "Empty ID",
-			handler:    func(w http.ResponseWriter, r *http.Request) {},
+			handler:    func(_ http.ResponseWriter, _ *http.Request) {},
 			context:    ctx,
 			giveID:     "",
 			giveRegion: "centralus",
@@ -713,7 +713,7 @@ func TestAzureService_Snapshot(t *testing.T) {
 		},
 		{
 			name:       "Empty region",
-			handler:    func(w http.ResponseWriter, r *http.Request) {},
+			handler:    func(_ http.ResponseWriter, _ *http.Request) {},
 			context:    ctx,
 			giveID:     "4349ccdb-a2fd-4a89-a07b-48e3e330670b",
 			giveRegion: "",
@@ -728,7 +728,7 @@ func TestAzureService_Snapshot(t *testing.T) {
 		},
 		{
 			name: "Empty format",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(validTestData)
