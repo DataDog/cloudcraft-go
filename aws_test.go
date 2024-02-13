@@ -41,7 +41,7 @@ func TestAWSService_List(t *testing.T) {
 	}{
 		{
 			name: "Valid AWS account data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(validTestData)
@@ -71,7 +71,7 @@ func TestAWSService_List(t *testing.T) {
 		},
 		{
 			name: "Invalid AWS account data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(invalidTestData)
@@ -82,7 +82,7 @@ func TestAWSService_List(t *testing.T) {
 		},
 		{
 			name: "API error response",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusInternalServerError)
 			},
 			context: ctx,
@@ -91,7 +91,7 @@ func TestAWSService_List(t *testing.T) {
 		},
 		{
 			name: "Empty AWS account data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(emptyTestData)
@@ -102,7 +102,7 @@ func TestAWSService_List(t *testing.T) {
 		},
 		{
 			name:    "Nil context",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: nil,
 			want:    nil,
 			wantErr: true,
@@ -156,7 +156,7 @@ func TestAWSService_Create(t *testing.T) {
 	}{
 		{
 			name: "Valid AWS account data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusCreated)
 
 				w.Write(validTestData)
@@ -182,7 +182,7 @@ func TestAWSService_Create(t *testing.T) {
 		},
 		{
 			name: "Invalid AWS account data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(invalidTestData)
@@ -198,7 +198,7 @@ func TestAWSService_Create(t *testing.T) {
 		},
 		{
 			name: "API error response",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusBadRequest)
 			},
 			context: ctx,
@@ -212,7 +212,7 @@ func TestAWSService_Create(t *testing.T) {
 		},
 		{
 			name:    "Nil context",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			give: &cloudcraft.AWSAccount{
 				Name:       "Go SDK Test",
 				RoleARN:    "arn:aws:iam::643880554691j:role/cloudcraft",
@@ -223,7 +223,7 @@ func TestAWSService_Create(t *testing.T) {
 		},
 		{
 			name:    "Nil AWS account",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: ctx,
 			give:    nil,
 			want:    nil,
@@ -231,7 +231,7 @@ func TestAWSService_Create(t *testing.T) {
 		},
 		{
 			name:    "Empty Name",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: ctx,
 			give: &cloudcraft.AWSAccount{
 				Name:       "",
@@ -243,7 +243,7 @@ func TestAWSService_Create(t *testing.T) {
 		},
 		{
 			name:    "Empty RoleARN",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: ctx,
 			give: &cloudcraft.AWSAccount{
 				Name:       "Go SDK Test",
@@ -298,7 +298,7 @@ func TestAWSService_Update(t *testing.T) {
 	}{
 		{
 			name: "Valid AWS account data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusNoContent)
 			},
 			context: ctx,
@@ -320,7 +320,7 @@ func TestAWSService_Update(t *testing.T) {
 		},
 		{
 			name: "API error response",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusBadRequest)
 			},
 			context: ctx,
@@ -334,7 +334,7 @@ func TestAWSService_Update(t *testing.T) {
 		},
 		{
 			name:    "Nil AWS account",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: ctx,
 			give:    nil,
 			want:    nil,
@@ -342,7 +342,7 @@ func TestAWSService_Update(t *testing.T) {
 		},
 		{
 			name:    "Nil context",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: nil,
 			give: &cloudcraft.AWSAccount{
 				ID:      "fe3e5b29-a0e8-41ca-91e2-02a0441b1d33",
@@ -354,7 +354,7 @@ func TestAWSService_Update(t *testing.T) {
 		},
 		{
 			name:    "Empty ID",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: ctx,
 			give: &cloudcraft.AWSAccount{
 				Name:    "My updated AWS account",
@@ -365,7 +365,7 @@ func TestAWSService_Update(t *testing.T) {
 		},
 		{
 			name:    "Empty name",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: ctx,
 			give: &cloudcraft.AWSAccount{
 				ID:      "fe3e5b29-a0e8-41ca-91e2-02a0441b1d33",
@@ -376,7 +376,7 @@ func TestAWSService_Update(t *testing.T) {
 		},
 		{
 			name:    "Empty role ARN",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: ctx,
 			give: &cloudcraft.AWSAccount{
 				ID:   "fe3e5b29-a0e8-41ca-91e2-02a0441b1d33",
@@ -430,7 +430,7 @@ func TestAWSService_Delete(t *testing.T) {
 	}{
 		{
 			name: "Valid AWS account data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusNoContent)
 			},
 			context: ctx,
@@ -448,7 +448,7 @@ func TestAWSService_Delete(t *testing.T) {
 		},
 		{
 			name: "API error response",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusBadRequest)
 			},
 			context: ctx,
@@ -458,7 +458,7 @@ func TestAWSService_Delete(t *testing.T) {
 		},
 		{
 			name:    "Nil context",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: nil,
 			give:    "fe3e5b29-a0e8-41ca-91e2-02a0441b1d33",
 			want:    nil,
@@ -466,7 +466,7 @@ func TestAWSService_Delete(t *testing.T) {
 		},
 		{
 			name:    "Empty ID",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: ctx,
 			give:    "",
 			want:    nil,
@@ -524,7 +524,7 @@ func TestAWSService_Snapshot(t *testing.T) {
 	}{
 		{
 			name: "Valid AWS account snapshot",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(validTestData)
@@ -543,7 +543,7 @@ func TestAWSService_Snapshot(t *testing.T) {
 		},
 		{
 			name: "API error response",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusBadRequest)
 			},
 			context:    ctx,
@@ -558,7 +558,7 @@ func TestAWSService_Snapshot(t *testing.T) {
 		},
 		{
 			name:       "Nil context",
-			handler:    func(w http.ResponseWriter, r *http.Request) {},
+			handler:    func(_ http.ResponseWriter, _ *http.Request) {},
 			context:    nil,
 			giveID:     "fe3e5b29-a0e8-41ca-91e2-02a0441b1d33",
 			giveRegion: "us-east-1",
@@ -571,7 +571,7 @@ func TestAWSService_Snapshot(t *testing.T) {
 		},
 		{
 			name: "Nil snapshot params",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(validTestData)
@@ -587,7 +587,7 @@ func TestAWSService_Snapshot(t *testing.T) {
 		},
 		{
 			name: "Empty format",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(validTestData)
@@ -606,7 +606,7 @@ func TestAWSService_Snapshot(t *testing.T) {
 		},
 		{
 			name:       "Empty ID",
-			handler:    func(w http.ResponseWriter, r *http.Request) {},
+			handler:    func(_ http.ResponseWriter, _ *http.Request) {},
 			context:    ctx,
 			giveID:     "",
 			giveRegion: "us-east-1",
@@ -619,7 +619,7 @@ func TestAWSService_Snapshot(t *testing.T) {
 		},
 		{
 			name:       "Empty region",
-			handler:    func(w http.ResponseWriter, r *http.Request) {},
+			handler:    func(_ http.ResponseWriter, _ *http.Request) {},
 			context:    ctx,
 			giveID:     "fe3e5b29-a0e8-41ca-91e2-02a0441b1d33",
 			giveRegion: "",
@@ -693,7 +693,7 @@ func TestAWSService_IAMParameters(t *testing.T) {
 	}{
 		{
 			name: "Valid IAM parameters data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(validTestData)
@@ -708,7 +708,7 @@ func TestAWSService_IAMParameters(t *testing.T) {
 		},
 		{
 			name: "Invalid IAM parameters data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(invalidTestData)
@@ -719,7 +719,7 @@ func TestAWSService_IAMParameters(t *testing.T) {
 		},
 		{
 			name:    "Nil context",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: nil,
 			want:    nil,
 			wantErr: true,
@@ -772,7 +772,7 @@ func TestAWSService_IAMPolicy(t *testing.T) {
 	}{
 		{
 			name: "Valid IAM policy data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(validTestData)
@@ -805,7 +805,7 @@ func TestAWSService_IAMPolicy(t *testing.T) {
 		},
 		{
 			name: "Invalid IAM policy data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(invalidTestData)
@@ -816,7 +816,7 @@ func TestAWSService_IAMPolicy(t *testing.T) {
 		},
 		{
 			name:    "Nil context",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: nil,
 			want:    nil,
 			wantErr: true,

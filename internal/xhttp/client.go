@@ -40,7 +40,7 @@ func NewClient(timeout time.Duration) *http.Client {
 			ForceAttemptHTTP2:   true,
 		},
 		Timeout: timeout,
-		CheckRedirect: func(req *http.Request, via []*http.Request) error {
+		CheckRedirect: func(_ *http.Request, _ []*http.Request) error {
 			return http.ErrUseLastResponse
 		},
 	}

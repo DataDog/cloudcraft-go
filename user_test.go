@@ -37,7 +37,7 @@ func TestUserService_Me(t *testing.T) {
 	}{
 		{
 			name: "Valid user data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(validTestData)
@@ -59,7 +59,7 @@ func TestUserService_Me(t *testing.T) {
 		},
 		{
 			name: "Invalid user data",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusOK)
 
 				w.Write(invalidTestData)
@@ -70,7 +70,7 @@ func TestUserService_Me(t *testing.T) {
 		},
 		{
 			name: "API error response",
-			handler: func(w http.ResponseWriter, r *http.Request) {
+			handler: func(w http.ResponseWriter, _ *http.Request) {
 				w.WriteHeader(http.StatusInternalServerError)
 			},
 			context: ctx,
@@ -79,7 +79,7 @@ func TestUserService_Me(t *testing.T) {
 		},
 		{
 			name:    "Nil context",
-			handler: func(w http.ResponseWriter, r *http.Request) {},
+			handler: func(_ http.ResponseWriter, _ *http.Request) {},
 			context: nil,
 			want:    nil,
 			wantErr: true,
