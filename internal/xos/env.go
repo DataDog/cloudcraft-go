@@ -6,6 +6,7 @@ package xos
 
 import (
 	"os"
+	"strconv"
 	"time"
 )
 
@@ -20,6 +21,25 @@ func GetEnv(key, fallback string) string {
 	}
 
 	return value
+}
+
+// GetIntEnv returns the integer value of the environment variable named by the
+// key.
+//
+// If the variable is present in the environment the value (which may be empty)
+// or if the variable is unset, a fallback value is returned.
+func GetIntEnv(key string, fallback int) int {
+	value, found := os.LookupEnv(key)
+	if !found || value == "" {
+		return fallback
+	}
+
+	intValue, err := strconv.Atoi(value)
+	if err != nil {
+		return fallback
+	}
+
+	return intValue
 }
 
 // GetDurationEnv returns the time.Duration value of the environment variable
