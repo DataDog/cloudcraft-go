@@ -15,10 +15,6 @@ const (
 )
 
 const (
-	// DefaultMaxRetries is the default maximum number of times a request will
-	// be retried.
-	DefaultMaxRetries int = 3
-
 	// DefaultMinRetryDelay is the default minimum duration to wait before
 	// retrying a request.
 	DefaultMinRetryDelay time.Duration = 1 * time.Second
