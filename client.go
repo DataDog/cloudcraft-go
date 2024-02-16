@@ -42,6 +42,9 @@ type (
 		// httpClient is the underlying HTTP client used by the API client.
 		httpClient *http.Client
 
+		// retryPolicy specifies the policy used to retry failed requests.
+		retryPolicy *xhttp.RetryPolicy
+
 		// cfg specifies the configuration used by the API client.
 		cfg *Config
 
@@ -74,13 +77,23 @@ func NewClient(cfg *Config) (*Client, error) {
 
 	cfg.endpoint = baseURL
 
+	if cfg.MaxRetries <= 0 {
+		cfg.MaxRetries = DefaultMaxRetries
+	}
+
 	if cfg.Timeout <= 0 {
 		cfg.Timeout = DefaultTimeout
 	}
 
 	client := &Client{
 		httpClient: xhttp.NewClient(cfg.Timeout),
-		cfg:        cfg,
+		retryPolicy: &xhttp.RetryPolicy{
+			IsRetryable:   xhttp.DefaultIsRetryable,
+			MaxRetries:    cfg.MaxRetries,
+			MinRetryDelay: xhttp.DefaultMinRetryDelay,
+			MaxRetryDelay: xhttp.DefaultMaxRetryDelay,
+		},
+		cfg: cfg,
 	}
 
 	client.common.client = client
