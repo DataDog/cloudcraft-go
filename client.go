@@ -18,7 +18,6 @@ import (
 	"github.com/DataDog/cloudcraft-go/internal/meta"
 	"github.com/DataDog/cloudcraft-go/internal/xerrors"
 	"github.com/DataDog/cloudcraft-go/internal/xhttp"
-	"golang.org/x/time/rate"
 )
 
 const (
@@ -42,12 +41,6 @@ type (
 	Client struct {
 		// httpClient is the underlying HTTP client used by the API client.
 		httpClient *http.Client
-
-		// rateLimiter specifies a client-side requests per second limit.
-		//
-		// Ultimately, our API enforces this limit on the server side, but this
-		// is a good way to be a good citizen.
-		rateLimiter *rate.Limiter
 
 		// cfg specifies the configuration used by the API client.
 		cfg *Config
@@ -86,9 +79,8 @@ func NewClient(cfg *Config) (*Client, error) {
 	}
 
 	client := &Client{
-		httpClient:  xhttp.NewClient(cfg.Timeout),
-		rateLimiter: rate.NewLimiter(rate.Limit(2), 1), // average of 2 req/s
-		cfg:         cfg,
+		httpClient: xhttp.NewClient(cfg.Timeout),
+		cfg:        cfg,
 	}
 
 	client.common.client = client
@@ -192,10 +184,6 @@ type Response struct {
 
 // do performs an HTTP request using the underlying HTTP client.
 func (c *Client) do(req *http.Request) (*Response, error) {
-	if err := c.rateLimiter.Wait(req.Context()); err != nil {
-		return nil, fmt.Errorf("%w", err)
-	}
-
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
 		select {
