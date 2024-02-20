@@ -9,7 +9,6 @@ import (
 	"context"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -220,8 +219,6 @@ func (c *Client) do(req *http.Request) (*Response, error) {
 	}
 
 	for attempt := 0; attempt <= c.retryPolicy.MaxRetries; attempt++ {
-		log.Printf("attempt %d", attempt)
-
 		if body != nil {
 			req.Body = io.NopCloser(bytes.NewReader(body.Bytes()))
 		}
