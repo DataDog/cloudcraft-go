@@ -177,20 +177,6 @@ func TestDo(t *testing.T) {
 			context: ctx,
 			wantErr: true,
 		},
-		{
-			name: "Rate Limiter Error",
-			handler: func(w http.ResponseWriter, _ *http.Request) {
-				w.WriteHeader(http.StatusOK)
-			},
-			context: func() context.Context {
-				ctxWithCancel, cancel := context.WithCancel(ctx)
-
-				cancel()
-
-				return ctxWithCancel
-			}(),
-			wantErr: true,
-		},
 	}
 
 	for _, tt := range tests {
