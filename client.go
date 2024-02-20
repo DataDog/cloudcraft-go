@@ -9,6 +9,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -197,7 +198,51 @@ type Response struct {
 
 // do performs an HTTP request using the underlying HTTP client.
 func (c *Client) do(req *http.Request) (*Response, error) {
-	resp, err := c.httpClient.Do(req)
+	var (
+		resp *http.Response
+		err  error
+		body *bytes.Buffer
+	)
+
+	if req.Body != nil {
+		body = bytes.NewBuffer(make([]byte, 0))
+
+		_, err = io.Copy(body, req.Body)
+		if err != nil {
+			return nil, fmt.Errorf("%w", err)
+		}
+
+		req.Body = io.NopCloser(body)
+
+		if err = req.Body.Close(); err != nil {
+			return nil, fmt.Errorf("%w", err)
+		}
+	}
+
+	for attempt := 0; attempt <= c.retryPolicy.MaxRetries; attempt++ {
+		log.Printf("attempt %d", attempt)
+
+		if body != nil {
+			req.Body = io.NopCloser(bytes.NewReader(body.Bytes()))
+		}
+
+		resp, err = c.httpClient.Do(req)
+		if err != nil || !c.retryPolicy.IsRetryable(resp, err) {
+			break
+		}
+
+		if resp != nil {
+			if err = xhttp.DrainResponseBody(resp); err != nil {
+				_ = resp.Body.Close()
+			}
+		}
+
+		waitErr := c.retryPolicy.Wait(req.Context(), attempt)
+		if waitErr != nil {
+			return nil, fmt.Errorf("%w", waitErr)
+		}
+	}
+
 	if err != nil {
 		select {
 		case <-req.Context().Done():
