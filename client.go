@@ -28,6 +28,10 @@ const (
 	// ErrRequestFailed is returned when a request to the Cloudcraft API fails
 	// for unknown reasons.
 	ErrRequestFailed xerrors.Error = "request failed with status code"
+
+	// ErrMaxRetriesExceeded is returned when the maximum number of retries is
+	// exceeded for HTTP requests.
+	ErrMaxRetriesExceeded xerrors.Error = "maximum number of retries exceeded"
 )
 
 type (
@@ -198,9 +202,10 @@ type Response struct {
 // do performs an HTTP request using the underlying HTTP client.
 func (c *Client) do(req *http.Request) (*Response, error) {
 	var (
-		resp *http.Response
-		err  error
-		body *bytes.Buffer
+		attempt int
+		resp    *http.Response
+		err     error
+		body    *bytes.Buffer
 	)
 
 	if req.Body != nil {
@@ -218,7 +223,7 @@ func (c *Client) do(req *http.Request) (*Response, error) {
 		}
 	}
 
-	for attempt := 0; attempt <= c.retryPolicy.MaxRetries; attempt++ {
+	for attempt = 0; attempt <= c.retryPolicy.MaxRetries; attempt++ {
 		if body != nil {
 			req.Body = io.NopCloser(bytes.NewReader(body.Bytes()))
 		}
@@ -238,6 +243,10 @@ func (c *Client) do(req *http.Request) (*Response, error) {
 		if waitErr != nil {
 			return nil, fmt.Errorf("%w", waitErr)
 		}
+	}
+
+	if resp == nil && attempt >= c.retryPolicy.MaxRetries {
+		return nil, fmt.Errorf("%w: %d", ErrMaxRetriesExceeded, attempt)
 	}
 
 	if err != nil {
