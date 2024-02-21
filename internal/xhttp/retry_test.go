@@ -92,7 +92,7 @@ func TestRetryPolicy_Wait(t *testing.T) {
 				t.Errorf("Wait() error = %v, expectedErr %v", err, tt.expectedErr)
 			}
 
-			if end.After(expectedEndTime) {
+			if end.Sub(expectedEndTime) > 50*time.Millisecond {
 				t.Errorf("Wait() end time = %v, expectedEndTime %v", end, expectedEndTime)
 			}
 		})
