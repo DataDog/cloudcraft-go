@@ -200,7 +200,7 @@ type Response struct {
 }
 
 // do performs an HTTP request using the underlying HTTP client.
-func (c *Client) do(req *http.Request) (*Response, error) {
+func (c *Client) do(req *http.Request) (*Response, error) { //nolint:gocyclo // Necessary complexity.
 	var (
 		attempt int
 		resp    *http.Response
