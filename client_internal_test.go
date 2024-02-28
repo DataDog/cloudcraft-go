@@ -11,6 +11,7 @@ import (
 	"net/url"
 	"reflect"
 	"strconv"
+	"sync"
 	"testing"
 	"time"
 )
@@ -177,20 +178,6 @@ func TestDo(t *testing.T) {
 			context: ctx,
 			wantErr: true,
 		},
-		{
-			name: "Rate Limiter Error",
-			handler: func(w http.ResponseWriter, _ *http.Request) {
-				w.WriteHeader(http.StatusOK)
-			},
-			context: func() context.Context {
-				ctxWithCancel, cancel := context.WithCancel(ctx)
-
-				cancel()
-
-				return ctxWithCancel
-			}(),
-			wantErr: true,
-		},
 	}
 
 	for _, tt := range tests {
@@ -306,6 +293,158 @@ func TestRequest(t *testing.T) {
 
 			if got.URL.String() != tt.want.URL.String() {
 				t.Fatalf("Request().URL = %v, want %v", got.URL, tt.want.URL)
+			}
+		})
+	}
+}
+
+func TestDo_Retries_GET(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name               string
+		giveResponses      []int
+		giveRetries        int
+		giveDelay          time.Duration
+		giveTimeoutContext time.Duration
+		wantAttempts       int
+		wantFinalResponse  int
+		wantErr            bool
+	}{
+		{
+			name: "Success on first attempt",
+			giveResponses: []int{
+				http.StatusOK,
+			},
+			giveRetries:        3,
+			giveDelay:          0,
+			giveTimeoutContext: 5 * time.Second,
+			wantAttempts:       1,
+			wantFinalResponse:  http.StatusOK,
+			wantErr:            false,
+		},
+		{
+			name: "Success on third attempt",
+			giveResponses: []int{
+				http.StatusInternalServerError,
+				http.StatusBadGateway,
+				http.StatusOK,
+			},
+			giveRetries:        3,
+			giveDelay:          0,
+			giveTimeoutContext: 5 * time.Second,
+			wantAttempts:       3,
+			wantFinalResponse:  http.StatusOK,
+			wantErr:            false,
+		},
+		{
+			name: "Failure by exceeding max retries",
+			giveResponses: []int{
+				http.StatusInternalServerError,
+				http.StatusBadGateway,
+				http.StatusServiceUnavailable,
+				http.StatusGatewayTimeout,
+			},
+			giveRetries:        2,
+			giveDelay:          0,
+			giveTimeoutContext: 5 * time.Second,
+			wantAttempts:       3,
+			wantFinalResponse:  http.StatusServiceUnavailable,
+			wantErr:            true,
+		},
+		{
+			name: "Failure by context cancellation",
+			giveResponses: []int{
+				http.StatusInternalServerError,
+				http.StatusBadGateway,
+				http.StatusServiceUnavailable,
+				http.StatusGatewayTimeout,
+			},
+			giveRetries:        3,
+			giveDelay:          2 * time.Second,
+			giveTimeoutContext: 1 * time.Second,
+			wantAttempts:       0,
+			wantFinalResponse:  http.StatusInternalServerError,
+			wantErr:            true,
+		},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			var (
+				mu       sync.Mutex
+				requests int
+				srv      = httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+					time.Sleep(tt.giveDelay)
+
+					respIndex := requests
+
+					if respIndex >= len(tt.giveResponses) {
+						respIndex = len(tt.giveResponses) - 1
+					}
+
+					w.WriteHeader(tt.giveResponses[respIndex])
+
+					mu.Lock()
+					requests++
+					mu.Unlock()
+				}))
+			)
+
+			defer srv.Close()
+
+			endpoint, err := url.Parse(srv.URL)
+			if err != nil {
+				t.Fatalf("failed to parse mock server URL: %v", err)
+			}
+
+			cfg := &Config{
+				Scheme:     endpoint.Scheme,
+				Host:       endpoint.Hostname(),
+				Port:       endpoint.Port(),
+				Path:       DefaultPath,
+				MaxRetries: tt.giveRetries,
+				Key:        "not-a-real-key-oRbwhd5RTvWsPJ89ZkASHU13qcyd=",
+			}
+
+			client, err := NewClient(cfg)
+			if err != nil {
+				t.Fatalf("failed to create client for mock tests: %v", err)
+			}
+
+			client.retryPolicy.MinRetryDelay = 1 * time.Millisecond
+			client.retryPolicy.MaxRetryDelay = 1 * time.Millisecond
+			client.retryPolicy.IsRetryable = func(resp *http.Response, _ error) bool {
+				return resp.StatusCode >= 500
+			}
+
+			ctx, cancel := context.WithTimeout(context.Background(), tt.giveTimeoutContext)
+			defer cancel()
+
+			req, err := client.request(ctx, http.MethodGet, endpoint.String(), http.NoBody)
+			if err != nil {
+				t.Fatalf("failed to create mock request: %v", err)
+			}
+
+			got, err := client.do(req)
+			if tt.wantErr != (err != nil) {
+				t.Fatalf("Do() error = %v, wantErr %v", err, tt.wantErr)
+			}
+
+			if err == nil && got.Status != tt.wantFinalResponse {
+				t.Fatalf("unexpected final response status: got %d, want %d", got.Status, tt.wantFinalResponse)
+			}
+
+			mu.Lock()
+			gotRequests := requests
+			mu.Unlock()
+
+			if gotRequests != tt.wantAttempts {
+				t.Fatalf("unexpected number of attempts: got %d, want %d", gotRequests, tt.wantAttempts)
 			}
 		})
 	}

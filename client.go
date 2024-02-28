@@ -18,7 +18,6 @@ import (
 	"github.com/DataDog/cloudcraft-go/internal/meta"
 	"github.com/DataDog/cloudcraft-go/internal/xerrors"
 	"github.com/DataDog/cloudcraft-go/internal/xhttp"
-	"golang.org/x/time/rate"
 )
 
 const (
@@ -29,6 +28,10 @@ const (
 	// ErrRequestFailed is returned when a request to the Cloudcraft API fails
 	// for unknown reasons.
 	ErrRequestFailed xerrors.Error = "request failed with status code"
+
+	// ErrMaxRetriesExceeded is returned when the maximum number of retries is
+	// exceeded for HTTP requests.
+	ErrMaxRetriesExceeded xerrors.Error = "maximum number of retries exceeded"
 )
 
 type (
@@ -43,11 +46,8 @@ type (
 		// httpClient is the underlying HTTP client used by the API client.
 		httpClient *http.Client
 
-		// rateLimiter specifies a client-side requests per second limit.
-		//
-		// Ultimately, our API enforces this limit on the server side, but this
-		// is a good way to be a good citizen.
-		rateLimiter *rate.Limiter
+		// retryPolicy specifies the policy used to retry failed requests.
+		retryPolicy *xhttp.RetryPolicy
 
 		// cfg specifies the configuration used by the API client.
 		cfg *Config
@@ -81,14 +81,23 @@ func NewClient(cfg *Config) (*Client, error) {
 
 	cfg.endpoint = baseURL
 
+	if cfg.MaxRetries <= 0 {
+		cfg.MaxRetries = DefaultMaxRetries
+	}
+
 	if cfg.Timeout <= 0 {
 		cfg.Timeout = DefaultTimeout
 	}
 
 	client := &Client{
-		httpClient:  xhttp.NewClient(cfg.Timeout),
-		rateLimiter: rate.NewLimiter(rate.Limit(2), 1), // average of 2 req/s
-		cfg:         cfg,
+		httpClient: xhttp.NewClient(cfg.Timeout),
+		retryPolicy: &xhttp.RetryPolicy{
+			IsRetryable:   xhttp.DefaultIsRetryable,
+			MaxRetries:    cfg.MaxRetries,
+			MinRetryDelay: xhttp.DefaultMinRetryDelay,
+			MaxRetryDelay: xhttp.DefaultMaxRetryDelay,
+		},
+		cfg: cfg,
 	}
 
 	client.common.client = client
@@ -191,12 +200,55 @@ type Response struct {
 }
 
 // do performs an HTTP request using the underlying HTTP client.
-func (c *Client) do(req *http.Request) (*Response, error) {
-	if err := c.rateLimiter.Wait(req.Context()); err != nil {
-		return nil, fmt.Errorf("%w", err)
+func (c *Client) do(req *http.Request) (*Response, error) { //nolint:gocyclo // Necessary complexity.
+	var (
+		attempt int
+		resp    *http.Response
+		err     error
+		body    *bytes.Buffer
+	)
+
+	if req.Body != nil {
+		body = bytes.NewBuffer(make([]byte, 0))
+
+		_, err = io.Copy(body, req.Body)
+		if err != nil {
+			return nil, fmt.Errorf("%w", err)
+		}
+
+		req.Body = io.NopCloser(body)
+
+		if err = req.Body.Close(); err != nil {
+			return nil, fmt.Errorf("%w", err)
+		}
 	}
 
-	resp, err := c.httpClient.Do(req)
+	for attempt = 0; attempt <= c.retryPolicy.MaxRetries; attempt++ {
+		if body != nil {
+			req.Body = io.NopCloser(bytes.NewReader(body.Bytes()))
+		}
+
+		resp, err = c.httpClient.Do(req)
+		if err != nil || !c.retryPolicy.IsRetryable(resp, err) {
+			break
+		}
+
+		if resp != nil {
+			if err = xhttp.DrainResponseBody(resp); err != nil {
+				_ = resp.Body.Close()
+			}
+		}
+
+		waitErr := c.retryPolicy.Wait(req.Context(), attempt)
+		if waitErr != nil {
+			return nil, fmt.Errorf("%w", waitErr)
+		}
+	}
+
+	if resp == nil && attempt >= c.retryPolicy.MaxRetries {
+		return nil, fmt.Errorf("%w: %d", ErrMaxRetriesExceeded, attempt)
+	}
+
 	if err != nil {
 		select {
 		case <-req.Context().Done():

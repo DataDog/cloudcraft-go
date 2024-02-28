@@ -47,11 +47,12 @@ func SetupLiveClient(t *testing.T) *cloudcraft.Client {
 	key := GetEnv(t, _envAPIKey)
 
 	cfg := &cloudcraft.Config{
-		Scheme: cloudcraft.DefaultScheme,
-		Host:   cloudcraft.DefaultHost,
-		Port:   cloudcraft.DefaultPort,
-		Path:   cloudcraft.DefaultPath,
-		Key:    key,
+		Scheme:     cloudcraft.DefaultScheme,
+		Host:       cloudcraft.DefaultHost,
+		Port:       cloudcraft.DefaultPort,
+		Path:       cloudcraft.DefaultPath,
+		MaxRetries: 8,
+		Key:        key,
 	}
 
 	client, err := cloudcraft.NewClient(cfg)

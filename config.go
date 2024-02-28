@@ -45,6 +45,10 @@ const (
 	// DefaultPath is the default path to the Cloudcraft API.
 	DefaultPath string = "/"
 
+	// DefaultMaxRetries is the default maximum number of times the client will
+	// retry a request if it fails.
+	DefaultMaxRetries int = 3
+
 	// DefaultTimeout is the default timeout for requests made by the Cloudcraft
 	// API client.
 	DefaultTimeout time.Duration = time.Second * 120
@@ -52,12 +56,13 @@ const (
 
 // Environment variables used to configure the Config struct.
 const (
-	EnvScheme  string = "CLOUDCRAFT_PROTOCOL"
-	EnvHost    string = "CLOUDCRAFT_HOST"
-	EnvPort    string = "CLOUDCRAFT_PORT"
-	EnvPath    string = "CLOUDCRAFT_PATH"
-	EnvTimeout string = "CLOUDCRAFT_TIMEOUT"
-	EnvAPIKey  string = "CLOUDCRAFT_API_KEY" //nolint:gosec // false positive
+	EnvScheme     string = "CLOUDCRAFT_PROTOCOL"
+	EnvHost       string = "CLOUDCRAFT_HOST"
+	EnvPort       string = "CLOUDCRAFT_PORT"
+	EnvPath       string = "CLOUDCRAFT_PATH"
+	EnvMaxRetries string = "CLOUDCRAFT_MAX_RETRIES"
+	EnvTimeout    string = "CLOUDCRAFT_TIMEOUT"
+	EnvAPIKey     string = "CLOUDCRAFT_API_KEY" //nolint:gosec // false positive
 )
 
 // Config holds the basic configuration for the Cloudcraft API.
@@ -108,6 +113,15 @@ type Config struct {
 	// [Learn more]: https://developers.cloudcraft.co/#authentication
 	Key string
 
+	// MaxRetries is the maximum number of times the client will retry a request
+	// if it fails.
+	//
+	// If not set, the value of the CLOUDCRAFT_MAX_RETRIES environment variable
+	// is used. If the environment variable is not set, the default value is 3.
+	//
+	// This field is optional.
+	MaxRetries int
+
 	// Timeout is the time limit for requests made by the Cloudcraft API client
 	// to the Cloudcraft API.
 	//
@@ -122,24 +136,26 @@ type Config struct {
 // NewConfig returns a new Config with the given API key.
 func NewConfig(key string) *Config {
 	return &Config{
-		Scheme:  DefaultScheme,
-		Host:    DefaultHost,
-		Port:    DefaultPort,
-		Path:    DefaultPath,
-		Key:     key,
-		Timeout: DefaultTimeout,
+		Scheme:     DefaultScheme,
+		Host:       DefaultHost,
+		Port:       DefaultPort,
+		Path:       DefaultPath,
+		MaxRetries: DefaultMaxRetries,
+		Key:        key,
+		Timeout:    DefaultTimeout,
 	}
 }
 
 // NewConfigFromEnv returns a new Config from values set in the environment.
 func NewConfigFromEnv() *Config {
 	return &Config{
-		Scheme:  xos.GetEnv(EnvScheme, DefaultScheme),
-		Host:    xos.GetEnv(EnvHost, DefaultHost),
-		Port:    xos.GetEnv(EnvPort, DefaultPort),
-		Path:    xos.GetEnv(EnvPath, DefaultPath),
-		Key:     xos.GetEnv(EnvAPIKey, ""),
-		Timeout: xos.GetDurationEnv(EnvTimeout, DefaultTimeout),
+		Scheme:     xos.GetEnv(EnvScheme, DefaultScheme),
+		Host:       xos.GetEnv(EnvHost, DefaultHost),
+		Port:       xos.GetEnv(EnvPort, DefaultPort),
+		Path:       xos.GetEnv(EnvPath, DefaultPath),
+		MaxRetries: xos.GetIntEnv(EnvMaxRetries, DefaultMaxRetries),
+		Key:        xos.GetEnv(EnvAPIKey, ""),
+		Timeout:    xos.GetDurationEnv(EnvTimeout, DefaultTimeout),
 	}
 }
 
