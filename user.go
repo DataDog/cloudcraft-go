@@ -35,7 +35,7 @@ type User struct {
 //
 // [API reference].
 //
-// [API reference]: https://developers.cloudcraft.co/#a1ac9d21-3d47-4338-b171-8419872f818a
+// [API reference]: https://docs.datadoghq.com/cloudcraft/api/users/#get-user-profile
 func (s *UserService) Me(ctx context.Context) (*User, *Response, error) {
 	if ctx == nil {
 		return nil, nil, ErrNilContext

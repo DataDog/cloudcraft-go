@@ -207,7 +207,7 @@ func (p *BudgetExportParams) query() url.Values {
 //
 // [API Reference].
 //
-// [API Reference]: https://developers.cloudcraft.co/#19d9d681-b3b7-4950-a0e0-aeb518101714
+// [API Reference]: https://docs.datadoghq.com/cloudcraft/api/blueprints/#list-blueprints
 func (s *BlueprintService) List(ctx context.Context) ([]*Blueprint, *Response, error) {
 	if ctx == nil {
 		return nil, nil, ErrNilContext
@@ -250,7 +250,7 @@ func (s *BlueprintService) List(ctx context.Context) ([]*Blueprint, *Response, e
 //
 // [API reference].
 //
-// [API reference]: https://developers.cloudcraft.co/#dfc05b6e-a851-46aa-8019-c839eae7d695
+// [API reference]: https://docs.datadoghq.com/cloudcraft/api/blueprints/#retrieve-a-blueprint
 func (s *BlueprintService) Get(ctx context.Context, id string) (*Blueprint, *Response, error) {
 	if ctx == nil {
 		return nil, nil, ErrNilContext
@@ -293,7 +293,7 @@ func (s *BlueprintService) Get(ctx context.Context, id string) (*Blueprint, *Res
 //
 // [API reference].
 //
-// [API reference]: https://developers.cloudcraft.co/#d72c9b37-9f03-4c24-98d0-92971493780f
+// [API reference]: https://docs.datadoghq.com/cloudcraft/api/blueprints/#create-a-blueprint
 func (s *BlueprintService) Create(ctx context.Context, blueprint *Blueprint) (*Blueprint, *Response, error) {
 	if ctx == nil {
 		return nil, nil, ErrNilContext
@@ -340,7 +340,7 @@ func (s *BlueprintService) Create(ctx context.Context, blueprint *Blueprint) (*B
 //
 // [API reference].
 //
-// [API reference]: https://developers.cloudcraft.co/#7139bd5a-cf80-4bff-b2da-be0d35250b8f
+// [API reference]: https://docs.datadoghq.com/cloudcraft/api/blueprints/#update-a-blueprint
 func (s *BlueprintService) Update(ctx context.Context, blueprint *Blueprint, etag string) (*Response, error) {
 	if ctx == nil {
 		return nil, ErrNilContext
@@ -391,7 +391,7 @@ func (s *BlueprintService) Update(ctx context.Context, blueprint *Blueprint, eta
 //
 // [API reference].
 //
-// [API reference]: https://developers.cloudcraft.co/#38e2767f-7b42-4573-85ba-6137b61fe0ef
+// [API reference]: https://docs.datadoghq.com/cloudcraft/api/blueprints/#delete-a-blueprint
 func (s *BlueprintService) Delete(ctx context.Context, id string) (*Response, error) {
 	if ctx == nil {
 		return nil, ErrNilContext
@@ -429,7 +429,7 @@ func (s *BlueprintService) Delete(ctx context.Context, id string) (*Response, er
 //
 // [API reference].
 //
-// [API reference]: https://developers.cloudcraft.co/#8ad8ffa1-4a34-44e1-8795-4a851fc2fa58
+// [API reference]: https://docs.datadoghq.com/cloudcraft/api/blueprints/#export-a-blueprint-as-an-image
 func (s *BlueprintService) ExportImage(
 	ctx context.Context,
 	id string,
@@ -491,7 +491,7 @@ func (s *BlueprintService) ExportImage(
 //
 // [API reference].
 //
-// [API reference]: https://developers.cloudcraft.co/#4280d5b3-c9a1-423f-8074-0499447dd8d6
+// [API reference]: https://docs.datadoghq.com/cloudcraft/api/budgets/#export-budget-for-a-blueprint
 func (s *BlueprintService) ExportBudget(
 	ctx context.Context,
 	id string,
