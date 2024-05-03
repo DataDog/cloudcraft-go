@@ -64,7 +64,7 @@ type AzureAccount struct {
 //
 // [API reference].
 //
-// [API reference]: https://developers.cloudcraft.co/#29470635-2970-4205-8256-85c5835b92a1
+// [API reference]: https://docs.datadoghq.com/cloudcraft/api/azure-accounts/#list-azure-accounts
 func (s *AzureService) List(ctx context.Context) ([]*AzureAccount, *Response, error) {
 	if ctx == nil {
 		return nil, nil, ErrNilContext
@@ -107,7 +107,7 @@ func (s *AzureService) List(ctx context.Context) ([]*AzureAccount, *Response, er
 //
 // [API reference].
 //
-// [API reference]: https://developers.cloudcraft.co/#09a9a67d-c807-45c1-b8a8-f5a6df08da12
+// [API reference]: https://docs.datadoghq.com/cloudcraft/api/azure-accounts/#add-an-azure-account
 func (s *AzureService) Create(ctx context.Context, account *AzureAccount) (*AzureAccount, *Response, error) {
 	if ctx == nil {
 		return nil, nil, ErrNilContext
@@ -174,7 +174,7 @@ func (s *AzureService) Create(ctx context.Context, account *AzureAccount) (*Azur
 //
 // [API reference].
 //
-// [API reference]: https://developers.cloudcraft.co/#d04fdf78-ea33-4846-a8b2-bb5e693e8f64
+// [API reference]: https://docs.datadoghq.com/cloudcraft/api/azure-accounts/#update-an-azure-account
 func (s *AzureService) Update(ctx context.Context, account *AzureAccount) (*Response, error) {
 	if ctx == nil {
 		return nil, ErrNilContext
@@ -242,7 +242,7 @@ func (s *AzureService) Update(ctx context.Context, account *AzureAccount) (*Resp
 //
 // [API reference].
 //
-// [API reference]: https://developers.cloudcraft.co/#c4788665-d408-4535-8aa1-bf27dfb064aa
+// [API reference]: https://docs.datadoghq.com/cloudcraft/api/azure-accounts/#delete-an-azure-account
 func (s *AzureService) Delete(ctx context.Context, id string) (*Response, error) {
 	if ctx == nil {
 		return nil, ErrNilContext
@@ -282,7 +282,7 @@ func (s *AzureService) Delete(ctx context.Context, id string) (*Response, error)
 //
 // [API reference].
 //
-// [API reference]: https://developers.cloudcraft.co/#e687cfa9-f181-4eaf-bf76-f167235fa4fe
+// [API reference]: https://docs.datadoghq.com/cloudcraft/api/azure-accounts/#snapshot-an-azure-account
 func (s *AzureService) Snapshot(
 	ctx context.Context,
 	id, region, format string,

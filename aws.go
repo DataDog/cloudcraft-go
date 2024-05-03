@@ -78,7 +78,7 @@ type IAMStatement struct {
 //
 // [API reference].
 //
-// [API reference]: https://developers.cloudcraft.co/#a83b30f1-8949-4c68-9944-2e2ab2710670
+// [API reference]: https://docs.datadoghq.com/cloudcraft/api/aws-accounts/#list-aws-accounts
 func (s *AWSService) List(ctx context.Context) ([]*AWSAccount, *Response, error) {
 	if ctx == nil {
 		return nil, nil, ErrNilContext
@@ -121,7 +121,7 @@ func (s *AWSService) List(ctx context.Context) ([]*AWSAccount, *Response, error)
 //
 // [API reference].
 //
-// [API reference]: https://developers.cloudcraft.co/#51c4726e-ce1a-4e16-8b3f-f15dcee0aebe
+// [API reference]: https://docs.datadoghq.com/cloudcraft/api/aws-accounts/#add-an-aws-account
 func (s *AWSService) Create(ctx context.Context, account *AWSAccount) (*AWSAccount, *Response, error) {
 	if ctx == nil {
 		return nil, nil, ErrNilContext
@@ -176,7 +176,7 @@ func (s *AWSService) Create(ctx context.Context, account *AWSAccount) (*AWSAccou
 //
 // [API reference].
 //
-// [API reference]: https://developers.cloudcraft.co/#d04fdf78-ea33-4846-a8b2-bb5e693e8f64
+// [API reference]: https://docs.datadoghq.com/cloudcraft/api/aws-accounts/#update-an-aws-account
 func (s *AWSService) Update(ctx context.Context, account *AWSAccount) (*Response, error) {
 	if ctx == nil {
 		return nil, ErrNilContext
@@ -232,7 +232,7 @@ func (s *AWSService) Update(ctx context.Context, account *AWSAccount) (*Response
 //
 // [API reference].
 //
-// [API reference]: https://developers.cloudcraft.co/#c4788665-d408-4535-8aa1-bf27dfb064aa
+// [API reference]: https://docs.datadoghq.com/cloudcraft/api/aws-accounts/#delete-aws-account
 func (s *AWSService) Delete(ctx context.Context, id string) (*Response, error) {
 	if ctx == nil {
 		return nil, ErrNilContext
@@ -272,7 +272,7 @@ func (s *AWSService) Delete(ctx context.Context, id string) (*Response, error) {
 //
 // [API reference].
 //
-// [API reference]: https://developers.cloudcraft.co/#13e7daaf-e22a-42c6-b6bc-e34a24f05e60
+// [API reference]: https://docs.datadoghq.com/cloudcraft/api/aws-accounts/#snapshot-aws-account
 func (s *AWSService) Snapshot(
 	ctx context.Context,
 	id, region, format string,
@@ -342,7 +342,7 @@ func (s *AWSService) Snapshot(
 //
 // [API reference].
 //
-// [API reference]: https://developers.cloudcraft.co/#aa18999e-f6da-4628-96bd-49d5a286b928
+// [API reference]: https://docs.datadoghq.com/cloudcraft/api/aws-accounts/#get-aws-iam-role-parameters
 func (s *AWSService) IAMParameters(ctx context.Context) (*IAMParams, *Response, error) {
 	if ctx == nil {
 		return nil, nil, ErrNilContext
@@ -381,7 +381,7 @@ func (s *AWSService) IAMParameters(ctx context.Context) (*IAMParams, *Response, 
 //
 // [API reference].
 //
-// [API reference]: https://help.cloudcraft.co/article/64-minimal-iam-policy
+// [API reference]: https://docs.datadoghq.com/cloudcraft/advanced/minimal-iam-policy/
 func (s *AWSService) IAMPolicy(ctx context.Context) (*IAMPolicy, *Response, error) {
 	if ctx == nil {
 		return nil, nil, ErrNilContext
