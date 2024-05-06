@@ -7,8 +7,11 @@ import (
 	"testing"
 	"time"
 
+	"github.com/DataDog/cloudcraft-go/internal/xerrors"
 	"github.com/DataDog/cloudcraft-go/internal/xhttp"
 )
+
+const ErrGenericError xerrors.Error = "generic error"
 
 func TestRetryPolicy_Wait(t *testing.T) {
 	t.Parallel()
@@ -111,7 +114,7 @@ func TestDefaultIsRetryable(t *testing.T) {
 		{
 			name:      "Error occurs",
 			giveResp:  nil,
-			giveError: errors.New("error"),
+			giveError: ErrGenericError,
 			want:      true,
 		},
 		{
