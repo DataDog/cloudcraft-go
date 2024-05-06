@@ -6,14 +6,16 @@ package xhttp_test
 
 import (
 	"bytes"
-	"errors"
 	"fmt"
 	"io"
 	"net/http"
 	"testing"
 
+	"github.com/DataDog/cloudcraft-go/internal/xerrors"
 	"github.com/DataDog/cloudcraft-go/internal/xhttp"
 )
+
+const ErrMockClose xerrors.Error = "mock close error"
 
 type errReader struct{}
 
@@ -30,7 +32,7 @@ func (c *customReadCloser) Read(p []byte) (n int, err error) {
 }
 
 func (*customReadCloser) Close() error {
-	return errors.New("mock close error")
+	return fmt.Errorf("%w", ErrMockClose)
 }
 
 func TestDrainResponseBody(t *testing.T) {
@@ -96,7 +98,7 @@ func TestDrainResponseBody_ErrorClose(t *testing.T) {
 		t.Error("expected error, got nil")
 	}
 
-	want := fmt.Errorf("%w: %w", xhttp.ErrCannotCloseResponse, errors.New("mock close error"))
+	want := fmt.Errorf("%w: %w", xhttp.ErrCannotCloseResponse, ErrMockClose)
 	if err.Error() != want.Error() {
 		t.Errorf("got: %v, want: %v", err, want)
 	}
