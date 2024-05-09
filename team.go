@@ -37,7 +37,7 @@ type Members struct {
 	UserID     *string `json:"userId,omitempty"`
 	Name       *string `json:"name,omitempty"`
 	Email      string  `json:"email,omitempty"`
-	MfaEnabled bool    `json:"mfaEnabled,omitempty"`
+	MFAEnabled bool    `json:"mfaEnabled,omitempty"`
 }
 
 // List returns a list of teams.
