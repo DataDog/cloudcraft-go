@@ -1,0 +1,23 @@
+[
+  {
+    "id": "2d2f9b4d-53ac-463f-9c7a-97249a22a7fa",
+    "name": "Team Cloudcraft SDKs",
+    "visible": true,
+    "crossOrganizational": false,
+    "customerId": "e6d4ccd3-551e-425f-b415-637f9005ed2a",
+    "updatedAt": "2022-10-10T17:01:11.214Z",
+    "createdAt": "2022-10-10T17:01:11.214Z",
+    "externalSharing": true,
+    "role": "owner",
+    "members": [
+      {
+        "id": "aa54884d-5c7b-4586-8139-7a6e39231cc9",
+        "role": "owner",
+        "userId": null,
+        "name": null,
+        "email": "hello@example.com",
+        "mfaEnabled": true
+      }
+    ]
+  }
+]
