@@ -56,6 +56,7 @@ type (
 		Azure     *AzureService
 		AWS       *AWSService
 		Blueprint *BlueprintService
+		Team      *TeamService
 		User      *UserService
 
 		// common specifies a common service shared by all services.
@@ -104,6 +105,7 @@ func NewClient(cfg *Config) (*Client, error) {
 	client.Azure = (*AzureService)(&client.common)
 	client.AWS = (*AWSService)(&client.common)
 	client.Blueprint = (*BlueprintService)(&client.common)
+	client.Team = (*TeamService)(&client.common)
 	client.User = (*UserService)(&client.common)
 
 	return client, nil
