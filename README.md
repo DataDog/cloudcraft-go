@@ -28,11 +28,11 @@ To install `cloudcraft-go`, run:
 go get github.com/DataDog/cloudcraft-go
 ```
 
-## Go SDK Documentation
+## Documentation
 
 Usage details and more examples, please [see the Go reference documentation](https://pkg.go.dev/github.com/DataDog/cloudcraft-go).
 
-## Example Usage
+## Usage
 
 In the below example the Cloudcraft API key is read from the `CLOUDCRAFT_API_KEY` environment variable. Alternatively, pass in the key to the `Config` struct directly.
 
