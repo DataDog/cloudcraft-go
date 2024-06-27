@@ -7,10 +7,9 @@
 
 Visualize your cloud architecture with Cloudcraft by Datadog, [the best way to create smart AWS and Azure diagrams](https://www.cloudcraft.co/).
 
-Cloudcraft supports both manual and programmatic diagramming, as well as automatic reverse engineering of existing cloud environments into
-beautiful system architecture diagrams.
+Cloudcraft supports both manual and programmatic diagramming, as well as automatic reverse engineering of existing cloud environments into beautiful system architecture diagrams.
 
-This `cloudcraft-go` package provides an easy-to-use native Go SDK for interacting with [the Cloudcraft API](https://developers.cloudcraft.co/).
+This `cloudcraft-go` package provides an easy-to-use native Go SDK for interacting with [the Cloudcraft API](https://docs.datadoghq.com/cloudcraft/api/).
 
 Use case examples:
 - Snapshot and visually compare your live AWS or Azure environment before and after a deployment, in your app or as part of your automated CI pipeline
@@ -19,7 +18,7 @@ Use case examples:
 - Backup, export & import your Cloudcraft data
 - Programmatically create Cloudcraft diagrams
 
-This SDK requires a [Cloudcraft API key](https://developers.cloudcraft.co/#authentication) to use. [A free trial of Cloudcraft Pro](https://www.cloudcraft.co/pricing) with API access is available.
+This SDK requires a [Cloudcraft API key](https://docs.datadoghq.com/cloudcraft/api/#authentication) to use. [A free trial of Cloudcraft Pro](https://www.cloudcraft.co/pricing) with API access is available.
 
 ## Installation
 
@@ -29,13 +28,13 @@ To install `cloudcraft-go`, run:
 go get github.com/DataDog/cloudcraft-go
 ```
 
-## Go SDK Documentation
+## Documentation
 
-Usage details and more examples, please [see the Go reference documentation](https://godocs.io/github.com/DataDog/cloudcraft-go).
+Please [see the Go reference documentation](https://pkg.go.dev/github.com/DataDog/cloudcraft-go).
 
-## Example Usage
+## Usage
 
-In the below example the Cloudcraft API key is read from the `CLOUDCRAFT_API_KEY` environment variable. Alternatively, pass in the key to the configuration directly.
+In the below example the Cloudcraft API key is read from the `CLOUDCRAFT_API_KEY` environment variable. Alternatively, pass in the key to the `Config` struct directly.
 
 ```go
 package main
@@ -76,7 +75,7 @@ func main() {
 }
 ```
 
-More examples can be found the [examples](examples/) directory.
+More examples can be found in the [examples](examples/) directory.
 
 ## Contributing
 
