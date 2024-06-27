@@ -75,7 +75,7 @@ func main() {
 }
 ```
 
-More examples can be found the [examples](examples/) directory.
+More examples can be found in the [examples](examples/) directory.
 
 ## Contributing
 
