@@ -2,6 +2,8 @@
 name: 'Tests'
 on:
   push:
+    branches:
+      - 'trunk'
     paths-ignore:
       - '.editorconfig'
       - '.gitignore'
@@ -13,6 +15,8 @@ on:
       - 'README.md'
       - 'SUPPORT.md'
   pull_request:
+    branches:
+      - 'trunk'
     paths-ignore:
       - '.editorconfig'
       - '.gitignore'
