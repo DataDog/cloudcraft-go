@@ -30,7 +30,7 @@ go get github.com/DataDog/cloudcraft-go
 
 ## Documentation
 
-Usage details and more examples, please [see the Go reference documentation](https://pkg.go.dev/github.com/DataDog/cloudcraft-go).
+Please [see the Go reference documentation](https://pkg.go.dev/github.com/DataDog/cloudcraft-go).
 
 ## Usage
 
